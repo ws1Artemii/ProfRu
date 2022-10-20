@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-public class InputActivity extends AppCompatActivity {
+public class SignInActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +18,7 @@ public class InputActivity extends AppCompatActivity {
         input_button_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(InputActivity.this,RegistrationActivity.class);
+                Intent intent = new Intent(SignInActivity.this,RegistrationActivity.class);
                 startActivity(intent);
             }
         });
@@ -27,7 +27,7 @@ public class InputActivity extends AppCompatActivity {
         input_button_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(InputActivity.this,SummaryActivity.class);
+                Intent intent = new Intent(SignInActivity.this,SummaryActivity.class);
                 startActivity(intent);
             }
         });

@@ -29,8 +29,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".InputActivity"
+            android:name=".SignInActivity"
             android:exported="true" />
+        <activity
+            android:name=".MainScreen.Vacations.VacationListActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
