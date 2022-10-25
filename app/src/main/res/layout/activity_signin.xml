@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegistrationAndSignIn.RegistrationActivity">
+    tools:context=".RegistrationAndSignIn.SignInActivity">
 
     <ImageView android:id="@+id/logo"
         android:layout_width="201dp"
@@ -17,7 +17,7 @@
     <TextView android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="РЕГИСТРАЦИЯ"
+        android:text="Вход"
         android:textColor="#80000000"
         android:textSize="25sp"
         app:layout_constraintTop_toBottomOf="@id/logo"
@@ -43,14 +43,6 @@
             android:background="@drawable/box_round"
             android:hint="Введите Email"/>
 
-        <EditText android:id="@+id/phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="15dp"
-            android:paddingStart="20dp"
-            android:background="@drawable/box_round"
-            android:hint="Введите номер телефона"/>
-
         <EditText android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -59,15 +51,7 @@
             android:background="@drawable/box_round"
             android:hint="Введите пароль"/>
 
-        <EditText android:id="@+id/reppass"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="15dp"
-            android:paddingStart="20dp"
-            android:background="@drawable/box_round"
-            android:hint="Повторите пароль"/>
-
-        <TextView android:id="@+id/register"
+        <TextView android:id="@+id/login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="32dp"
@@ -77,10 +61,10 @@
             android:background="@drawable/box_round"
             android:backgroundTint="@color/stroke_color"
             android:textColor="@color/white"
-            android:text="зарегистрироваться"
+            android:text="войти"
             android:textSize="20sp"/>
 
-        <TextView android:id="@+id/login"
+        <TextView android:id="@+id/register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="32dp"
@@ -88,7 +72,7 @@
             android:paddingHorizontal="15dp"
             android:textAlignment="center"
             android:background="@drawable/box_stroke"
-            android:text="войти"
+            android:text="зарегистрироваться"
             android:textSize="20sp"/>
 
     </LinearLayout>

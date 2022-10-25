@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.example.profru.RegistrationAndSignIn.SignInActivity;
+
 public class SplashActivity extends AppCompatActivity {
 
     @Override
@@ -18,6 +20,7 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 Intent i = new Intent(SplashActivity.this, SignInActivity.class);
                 startActivity(i);
+                finish();
             }
         },3*1000);
     }

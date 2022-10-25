@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainScreen.Vacations.VacationActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/card_image"
+                android:layout_width="match_parent"
+                android:layout_height="225dp"
+                android:layout_marginHorizontal="17dp"
+                android:layout_marginTop="21dp"
+                android:clickable="false"
+                android:scaleType="centerCrop"
+                android:src="@drawable/web_dev"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearance="@style/BoxShape" />
+
+            <TextView
+                android:id="@+id/card_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="17dp"
+                android:layout_marginTop="18dp"
+                android:clickable="false"
+                android:text="Junior Web-разработчик / инженер-программист (ASP.NET, C#.net, JS, Oracle)"
+                android:textColor="@color/brawn"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/card_cost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:text="от 50 000 р"
+                android:textColor="@color/brawn"
+                android:textSize="32sp" />
+
+            <TextView
+                android:id="@+id/vac_descr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="17dp"
+                android:layout_marginTop="18dp"
+                android:clickable="false"
+                android:text=" Команда разработчиков компании ООО «НПК «Прогресс» занимается развитием и сопровождением комплексной автоматизированной системы для территориального фонда обязательного медицинского страхования Республики Башкортостан, а также для страховых медицинских организаций Республики Башкортостан.
+\n\n
+Для доработки и создания новых подсистем приложения ищем разработчика, способного решать нестандартные задачи."
+                android:textColor="@color/brawn"
+                android:textSize="24sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Обязанности:"
+                android:textAlignment="center"
+                android:textColor="@color/brawn"
+                android:textSize="32dp" />
+
+            <TextView
+                android:id="@+id/vac_requiments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="17dp"
+                android:layout_marginTop="18dp"
+                android:clickable="false"
+                android:text="доработка уже существующих и создание новых модулей Web приложения (ASP.NET, C#.net, JS, Oracle)."
+                android:textColor="@color/brawn"
+                android:textSize="24sp" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <ImageView
+                    android:id="@+id/input_button_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="41dp"
+                    android:layout_marginHorizontal="27dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:srcCompat="@drawable/box_round" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Подать заявку"
+                    android:textColor="@color/brawn"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/input_button_3"
+                    app:layout_constraintEnd_toEndOf="@+id/input_button_3"
+                    app:layout_constraintStart_toStartOf="@+id/input_button_3"
+                    app:layout_constraintTop_toTopOf="@+id/input_button_3" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <ImageButton android:id="@+id/back"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:src="@drawable/back"
+        android:scaleType="fitXY"
+        android:background="@android:color/transparent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="10dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

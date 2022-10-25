@@ -1,4 +1,4 @@
-package com.example.profru;
+package com.example.profru.RegistrationAndSignIn;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.profru.MainScreen.Vacations.VacationListActivity;
+import com.example.profru.R;
+import com.example.profru.Resume.ResumeActivity;
+
 public class RegistrationActivity extends AppCompatActivity {
 
     @Override
@@ -14,20 +18,20 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-        ImageView input_button_3 = (ImageView) findViewById(R.id.input_button_3);
-        input_button_3.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.register).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(RegistrationActivity.this,SummaryActivity.class);
+                Intent intent = new Intent(RegistrationActivity.this, ResumeActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
-        ImageView input_button_4 = (ImageView) findViewById(R.id.input_button_4);
-        input_button_4.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.login).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(RegistrationActivity.this,RegistrationActivity.class);
+                Intent intent = new Intent(RegistrationActivity.this,SignInActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

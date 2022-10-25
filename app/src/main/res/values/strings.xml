@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">ProfRu</string>
+    <string-array name="obr_types">
+        <item>Выберете тип образования</item>
+        <item>дошкольное образование</item>
+        <item>начальное общее образование</item>
+        <item>основное общее образование</item>
+        <item>среднее общее образование</item>
+        <item>профессионального образования</item>
+        <item>среднее профессиональное образование</item>
+        <item>бакалавриат</item>
+        <item>специалитет, магистратура</item>
+        <item>подготовка кадров высшей квалификации</item>
+    </string-array>
 </resources>

@@ -8,16 +8,18 @@ import android.view.View;
 
 import com.example.profru.R;
 
-public class VacationListActivity extends AppCompatActivity {
+public class VacationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_vacation_list);
-        findViewById(R.id.card1).setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.activity_vacation);
+
+        findViewById(R.id.back).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(VacationListActivity.this, VacationActivity.class));
+                startActivity(new Intent(VacationActivity.this, VacationListActivity.class));
+                finish();
             }
         });
     }
