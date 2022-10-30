@@ -2,57 +2,63 @@ package com.example.profru.Resume;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Adapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-public class ListDialog extends DialogFragment {
+import com.example.profru.R;
+
+public class ListDialog extends Dialog implements View.OnClickListener {
 
     private ListAdapter adapter;
     private int type;
     private int index;
-    private ListView listView;
 
-    public ListDialog(int _type, ListAdapter _adapter, ListView _listView, int _index) {
+    public ListDialog(Context ctx, int _type, ListAdapter _adapter, int _index) {
+        super(ctx);
         type = _type;
         index = _index;
-        listView = _listView;
         adapter = _adapter;
     }
 
-    @NonNull
     @Override
-    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("Вы действительно хотите удалить данный элемент?")
-                .setPositiveButton("Окей", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if(type == 0){
-                            ObrListAdapter a = (ObrListAdapter) adapter;
-                            a.removeItem(index);
-                            dialogInterface.cancel();
-                        }
-                        else if(type == 1){
-                            WorkListAdapter a = (WorkListAdapter) adapter;
-                            a.removeItem(index);
-                            dialogInterface.cancel();
-                        }
-                    }
-                })
-                .setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
-                    }
-                });
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        return builder.create();
+        setContentView(R.layout.default_dialog);
+
+        ((TextView) findViewById(R.id.title)).setText("Вы действительно хотите удалить данный элемент?");
+        findViewById(R.id.no).setOnClickListener(this);
+        findViewById(R.id.yes).setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.no:
+                dismiss();
+                break;
+            case R.id.yes:
+                if(type == 0) {
+                    ObrListAdapter a = (ObrListAdapter) adapter;
+                    a.removeItem(index);
+                }
+                else if(type == 1) {
+                    WorkListAdapter a = (WorkListAdapter) adapter;
+                    a.removeItem(index);
+                }
+                dismiss();
+                break;
+        }
     }
 }

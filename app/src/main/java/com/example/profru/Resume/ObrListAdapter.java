@@ -1,6 +1,8 @@
 package com.example.profru.Resume;
 
 import android.database.DataSetObserver;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -66,8 +68,9 @@ public class ObrListAdapter extends BaseAdapter {
         view.findViewById(R.id.remove).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ListDialog dialog = new ListDialog(0, ObrListAdapter.this,  lv, i);
-                dialog.show(fm, null);
+                ListDialog dialog = new ListDialog(lv.getContext(), 0, ObrListAdapter.this, i);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
             }
         });
 

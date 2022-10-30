@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:background="@drawable/box_round"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@drawable/divider15v"
+        android:orientation="vertical"
+        android:showDividers="middle">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="Title"
+            android:textAlignment="center"
+            android:textColor="@color/blacktext"
+            android:textSize="20sp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.AppCompatButton android:id="@+id/no"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:background="@drawable/box_round"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/yes"
+                android:layout_marginEnd="1dp"
+                android:textSize="20sp"
+                android:textColor="@color/blacktext"
+                android:text="Отмена"
+                android:textAllCaps="false"/>
+
+            <androidx.appcompat.widget.AppCompatButton android:id="@+id/yes"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:background="@drawable/box_round"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/no"
+                android:layout_marginStart="1dp"
+                android:textSize="20sp"
+                android:textColor="@color/blacktext"
+                android:text="Окей"
+                android:textAllCaps="false"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,7 @@
 package com.example.profru.Resume;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -99,8 +101,9 @@ public class WorkListAdapter extends BaseAdapter {
         view.findViewById(R.id.remove).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ListDialog dialog = new ListDialog(1, WorkListAdapter.this, lv, i);
-                dialog.show(fm, null);
+                ListDialog dialog = new ListDialog(lv.getContext(), 1, WorkListAdapter.this, i);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
             }
         });
 
