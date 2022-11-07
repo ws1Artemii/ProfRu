@@ -57,6 +57,10 @@ public class ListDialog extends Dialog implements View.OnClickListener {
                     WorkListAdapter a = (WorkListAdapter) adapter;
                     a.removeItem(index);
                 }
+                else if(type == 2) {
+                    DostListAdapter a = (DostListAdapter) adapter;
+                    a.removeItem(index);
+                }
                 dismiss();
                 break;
         }

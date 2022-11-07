@@ -81,7 +81,7 @@ public class ObrListAdapter extends BaseAdapter {
         }
 
         ViewGroup.LayoutParams lp = lv.getLayoutParams();
-        lp.height = height * list.size();
+        lp.height = 1+height * list.size();
         lv.setLayoutParams(lp);
 
         return view;

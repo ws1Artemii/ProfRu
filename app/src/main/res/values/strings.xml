@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">ProfRu</string>
     <string-array name="obr_types">
-        <item>Выберете тип образования</item>
+        <item>Выберите тип образования</item>
         <item>дошкольное образование</item>
         <item>начальное общее образование</item>
         <item>основное общее образование</item>

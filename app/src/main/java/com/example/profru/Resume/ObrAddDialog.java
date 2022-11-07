@@ -49,9 +49,9 @@ public class ObrAddDialog extends Dialog implements View.OnClickListener {
             case R.id.yes:
                 if(spinner.getSelectedItemPosition()==0 || origin.getText().toString().equals("")) {
                     if (spinner.getSelectedItemPosition() == 0)
-                        Toast.makeText(getContext(), "Не выбран тип образования", Toast.LENGTH_SHORT);
+                        Toast.makeText(getContext(), "Не выбран тип образования", Toast.LENGTH_SHORT).show();
                     if (origin.getText().toString().equals(""))
-                        Toast.makeText(getContext(), "Не указано место обучения", Toast.LENGTH_SHORT);
+                        Toast.makeText(getContext(), "Не указано место обучения", Toast.LENGTH_SHORT).show();
                     break;
                 }
                 else {
