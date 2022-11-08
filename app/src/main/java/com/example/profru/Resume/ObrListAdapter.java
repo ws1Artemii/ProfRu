@@ -35,6 +35,10 @@ public class ObrListAdapter extends BaseAdapter {
         list = new ArrayList<>();
     }
 
+    public ArrayList<ObrItem> getList() {
+        return list;
+    }
+
     @Override
     public int getCount() {
         return list.size();

@@ -12,17 +12,17 @@ import android.widget.TextView;
 import com.example.profru.MainScreen.Vacations.VacationListActivity;
 import com.example.profru.R;
 
+import java.io.IOException;
+
 public class CustomDialog extends Dialog implements View.OnClickListener {
 
     private String message;
     private Activity activity;
-    private Class targetActivity;
 
-    public CustomDialog(String _message, Activity _activity, Class _targetActivity) {
+    public CustomDialog(Activity _activity, String _message) {
         super(_activity);
-        message = _message;
         activity = _activity;
-        targetActivity = _targetActivity;
+        message = _message;
     }
 
     @Override
@@ -43,8 +43,12 @@ public class CustomDialog extends Dialog implements View.OnClickListener {
                 dismiss();
                 break;
             case R.id.yes:
-                activity.startActivity(new Intent(activity, targetActivity));
-                activity.finish();
+                try {
+                    ((ResumeActivity) activity).SaveAll();
+                }
+                catch (IOException e){
+                    e.printStackTrace();
+                }
                 dismiss();
                 break;
         }

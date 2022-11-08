@@ -19,10 +19,13 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.util.Xml;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -30,6 +33,13 @@ import android.widget.TextView;
 import com.example.profru.MainScreen.Vacations.VacationListActivity;
 import com.example.profru.R;
 
+import org.xmlpull.v1.XmlSerializer;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.StringWriter;
 import java.util.Calendar;
 
 public class ResumeActivity extends AppCompatActivity {
@@ -40,7 +50,12 @@ public class ResumeActivity extends AppCompatActivity {
     private String image_path;
 
     private DostListAdapter dost_adapter;
+    private ObrListAdapter obr_adapter;
+    private WorkListAdapter work_adapter;
     private ListView dost_list;
+
+    private TextView birthdate;
+    private EditText fio;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -81,6 +96,7 @@ public class ResumeActivity extends AppCompatActivity {
         if(ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(ResumeActivity.this, new String[] {Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
         }
+        ActivityCompat.requestPermissions(ResumeActivity.this, new String[] {Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
 
         findViewById(R.id.avatar).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,17 +120,8 @@ public class ResumeActivity extends AppCompatActivity {
             }
         });
 
-        findViewById(R.id.save).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                CustomDialog cd = new CustomDialog("Сохранить все и перейти на главную страницу?", ResumeActivity.this, VacationListActivity.class);
-                cd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                cd.show();
-            }
-        });
-
         ListView obr_list = findViewById(R.id.obr_list);
-        ObrListAdapter obr_adapter = new ObrListAdapter(getLayoutInflater(), getSupportFragmentManager(), obr_list);
+        obr_adapter = new ObrListAdapter(getLayoutInflater(), getSupportFragmentManager(), obr_list);
         obr_list.setAdapter(obr_adapter);
 
         findViewById(R.id.obr_add).setOnClickListener(new View.OnClickListener() {
@@ -127,7 +134,7 @@ public class ResumeActivity extends AppCompatActivity {
         });
 
         ListView work_list = findViewById(R.id.work_list);
-        WorkListAdapter work_adapter = new WorkListAdapter(getLayoutInflater(), getSupportFragmentManager(), work_list);
+        work_adapter = new WorkListAdapter(getLayoutInflater(), getSupportFragmentManager(), work_list);
         work_list.setAdapter(work_adapter);
 
         findViewById(R.id.work_add).setOnClickListener(new View.OnClickListener() {
@@ -139,7 +146,7 @@ public class ResumeActivity extends AppCompatActivity {
             }
         });
 
-        TextView birthdate = findViewById(R.id.birthdate);
+        birthdate = findViewById(R.id.birthdate);
         birthdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -171,6 +178,87 @@ public class ResumeActivity extends AppCompatActivity {
                 dpd.show();
             }
         });
+
+        fio = findViewById(R.id.fio);
+
+        findViewById(R.id.save).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CustomDialog cd = new CustomDialog(ResumeActivity.this, "Сохранить все и перейти на главную страницу?");
+                cd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                cd.show();
+            }
+        });
+    }
+
+    public void SaveAll() throws IOException {
+        //XML
+        FileOutputStream fileos;
+        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "resume.xml");
+        file.createNewFile();
+        fileos = new FileOutputStream(file);
+
+        StringWriter writer = new StringWriter();
+        XmlSerializer xmlSerializer = Xml.newSerializer();
+        xmlSerializer.setOutput(writer);
+
+        xmlSerializer.startDocument("UTF-8", true);
+        xmlSerializer.startTag(null, "data");
+
+        //USER DATA
+        xmlSerializer.startTag(null, "user");
+
+        xmlSerializer.startTag(null, "FIO");
+        xmlSerializer.text(fio.getText().toString());
+        xmlSerializer.endTag(null, "FIO");
+
+        xmlSerializer.startTag(null, "birthdate");
+        xmlSerializer.text(birthdate.getText().toString());
+        xmlSerializer.endTag(null, "birthdate");
+
+        xmlSerializer.startTag(null, "avatar");
+        xmlSerializer.text(avatar_path);
+        xmlSerializer.endTag(null, "avatar");
+
+        xmlSerializer.endTag(null, "user");
+
+        //OBR
+        xmlSerializer.startTag(null, "obr");
+        for(ObrItem item : obr_adapter.getList()) {
+            xmlSerializer.startTag(null, "item");
+            xmlSerializer.text(item.getType() + "|" + item.getOrigin());
+            xmlSerializer.endTag(null, "item");
+        }
+        xmlSerializer.endTag(null, "obr");
+
+        //WORK
+        xmlSerializer.startTag(null, "work");
+        for(WorkItem item : work_adapter.getList()) {
+            xmlSerializer.startTag(null, "item");
+            xmlSerializer.text(item.getProfession() + "|" + item.getPlace() + "|" + item.getTime());
+            xmlSerializer.endTag(null, "item");
+        }
+        xmlSerializer.endTag(null, "work");
+
+        //DOST
+        xmlSerializer.startTag(null, "dost");
+        for(DostItem item : dost_adapter.getList()) {
+            xmlSerializer.startTag(null, "item");
+            xmlSerializer.text(item.getImage_path() + "|" + item.getDescription());
+            xmlSerializer.endTag(null, "item");
+        }
+        xmlSerializer.endTag(null, "dost");
+
+        xmlSerializer.endTag(null, "data");
+        xmlSerializer.endDocument();
+        xmlSerializer.flush();
+
+        String dataWrite = writer.toString();
+        fileos.write(dataWrite.getBytes());
+        fileos.close();
+
+        startActivity(new Intent(ResumeActivity.this, VacationListActivity.class));
+        finish();
     }
 
     private void dost_listener(View view) {

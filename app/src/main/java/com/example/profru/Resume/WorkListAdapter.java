@@ -30,6 +30,10 @@ public class WorkListAdapter extends BaseAdapter {
         list = new ArrayList<>();
     }
 
+    public ArrayList<WorkItem> getList() {
+        return list;
+    }
+
     @Override
     public int getCount() {
         return list.size();

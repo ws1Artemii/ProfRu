@@ -40,6 +40,10 @@ public class DostListAdapter extends BaseAdapter {
         listener = _listener;
     }
 
+    public ArrayList<DostItem> getList() {
+        return list;
+    }
+
     public int getCurrent_edit_index() {
         return current_edit_index;
     }
