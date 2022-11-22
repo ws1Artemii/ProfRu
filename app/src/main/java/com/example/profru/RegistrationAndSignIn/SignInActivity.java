@@ -30,7 +30,7 @@ public class SignInActivity extends AppCompatActivity {
         findViewById(R.id.login).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SignInActivity.this, ResumeActivity.class);
+                Intent intent = new Intent(SignInActivity.this, MergeActivity.class);
                 startActivity(intent);
                 finish();
             }

@@ -30,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.profru.MainScreen.MainActivity;
 import com.example.profru.MainScreen.Vacations.VacationListActivity;
 import com.example.profru.R;
 
@@ -194,7 +195,10 @@ public class ResumeActivity extends AppCompatActivity {
     public void SaveAll() throws IOException {
         //XML
         FileOutputStream fileos;
-        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "resume.xml");
+        File folder = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "ProfRu Files");
+        if(!folder.exists())
+            folder.mkdir();
+        File file = new File(folder, "resume.xml");
         file.createNewFile();
         fileos = new FileOutputStream(file);
 
@@ -257,7 +261,7 @@ public class ResumeActivity extends AppCompatActivity {
         fileos.write(dataWrite.getBytes());
         fileos.close();
 
-        startActivity(new Intent(ResumeActivity.this, VacationListActivity.class));
+        startActivity(new Intent(ResumeActivity.this, MainActivity.class));
         finish();
     }
 

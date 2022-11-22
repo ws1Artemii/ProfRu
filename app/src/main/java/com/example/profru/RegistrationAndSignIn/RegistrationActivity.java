@@ -21,7 +21,7 @@ public class RegistrationActivity extends AppCompatActivity {
         findViewById(R.id.register).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(RegistrationActivity.this, ResumeActivity.class);
+                Intent intent = new Intent(RegistrationActivity.this, MergeActivity.class);
                 startActivity(intent);
                 finish();
             }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="images">
+
+        <item>@drawable/noimage</item>
+        <item>@drawable/web_dev</item>
+        <item>@drawable/pc_master</item>
+
+    </array>
+</resources>

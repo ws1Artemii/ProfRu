@@ -31,24 +31,24 @@
             android:orientation="vertical"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
+            <TextView android:id="@+id/fio"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Илья Ильин Щербаков"
+                android:text="ФИО"
                 android:textColor="@color/brawn"
                 android:textSize="20sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="19 лет"
+                android:text="возраст"
                 android:textColor="@color/brawn"
                 android:textSize="20sp" />
 
-            <TextView
+            <TextView android:id="@+id/profession"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Техник, программист"
+                android:text="Здесь будут ваши профессии"
                 android:textColor="@color/brawn"
                 android:textSize="20sp" />
 
@@ -134,7 +134,7 @@
                     android:layout_width="122dp"
                     android:layout_height="match_parent"
                     android:layout_marginVertical="10dp"
-                    android:src="@drawable/web_dev"
+                    android:src="@drawable/pc_master"
                     android:scaleType="centerCrop"
                     app:shapeAppearance="@style/BoxShape"
                     app:layout_constraintStart_toStartOf="parent"
@@ -148,7 +148,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="32dp"
                     android:layout_marginEnd="10dp"
-                    android:text="Junior Web-разработчик / инженер-программист (ASP.NET, C#.net, JS, Oracle)"
+                    android:text="Инженер по обслуживанию компьютерной техники"
                     android:textColor="@color/brawn"
                     android:textSize="16sp"/>
                 <TextView
@@ -158,12 +158,20 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="@id/card_description"
                     app:layout_constraintTop_toBottomOf="@id/card_description"
-                    android:text="от 50 000 р"
+                    android:text="от 30 000 р"
                     android:textStyle="bold"
                     android:textColor="@color/brawn"
                     android:textSize="16sp"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/blacktext"
+                android:text="В будущем будут добавляться новые вакансии"/>
 
         </LinearLayout>
 
