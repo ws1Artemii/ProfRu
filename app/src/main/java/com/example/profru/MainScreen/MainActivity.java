@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.profru.MainScreen.Study.StudyActivity;
 import com.example.profru.MainScreen.Vacations.VacationActivity;
 import com.example.profru.MainScreen.Vacations.VacationListActivity;
 import com.example.profru.R;
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
         ViewPager2 vp = findViewById(R.id.pager);
         ListPagerAdapter adapter = new ListPagerAdapter(this);
         adapter.addFragment(new VacationsSlide());
+        adapter.addFragment(new StudySlide());
         vp.setAdapter(adapter);
     }
 
@@ -104,6 +106,50 @@ public class MainActivity extends AppCompatActivity {
                     i.putExtra("image", 2);
                     i.putExtra("zp", 30000);
                     i.putExtra("actions", "Диагностика оборудования, замена вышедших из строя блоков");
+                    startActivity(i);
+                }
+            });
+
+            return view;
+        }
+    }
+
+    public static class StudySlide extends Fragment {
+        public StudySlide() {
+
+        }
+
+        @Nullable
+        @Override
+        public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+            super.onCreateView(inflater, container, savedInstanceState);
+
+            View view = inflater.inflate(R.layout.activity_study_list, container);
+
+            view.findViewById(R.id.card1).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(getActivity(), StudyActivity.class);
+                    i.putExtra("title", "Курсы по разработке веб и мильтимедийных приложений");
+                    i.putExtra("description", "Вы научитесь разрабатывать XML разметку и UI андроид приложений" +
+                            "\n\n" + "Вы научитесь разрабатывать XML разметку и UI андроид приложений"
+                    + "\n\n" + "Вы научитесь работать с аудио, видео и изображениями");
+                    i.putExtra("image", 3);
+                    i.putExtra("cost", 22000);
+                    i.putExtra("time", 2);
+                    startActivity(i);
+                }
+            });
+
+            view.findViewById(R.id.card2).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(getActivity(), StudyActivity.class);
+                    i.putExtra("title", "Обучение системному администрированию");
+                    i.putExtra("description", "До того, как были изобретены сетевые технологии, все компьютеры работали разрозненно. Но после того как количество персональных компьютеров увеличилось, возникла необходимость создания общей рабочей среды. В то же время появилась потребность обеспечения управления различными рабочими процессами, а также реализации разнообразных задач. Именно такие функции возложены на администрирование компьютерных сетей.");
+                    i.putExtra("image", 4);
+                    i.putExtra("cost", 43000);
+                    i.putExtra("time", 5);
                     startActivity(i);
                 }
             });

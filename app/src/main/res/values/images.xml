@@ -5,6 +5,8 @@
         <item>@drawable/noimage</item>
         <item>@drawable/web_dev</item>
         <item>@drawable/pc_master</item>
+        <item>@drawable/course1_image</item>
+        <item>@drawable/course2_image</item>
 
     </array>
 </resources>

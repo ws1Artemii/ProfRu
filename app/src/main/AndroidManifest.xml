@@ -36,6 +36,7 @@
         <activity
             android:name=".RegistrationAndSignIn.RegistrationActivity"
             android:exported="false" />
+        <activity android:name=".MainScreen.Study.StudyActivity"/>
         <activity
             android:name=".SplashActivity"
             android:exported="true" >
