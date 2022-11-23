@@ -59,6 +59,10 @@ public class ObrListAdapter extends BaseAdapter {
         lv.invalidateViews();
     }
 
+    public void setList(ArrayList<ObrItem> list) {
+        this.list = list;
+    }
+
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
 

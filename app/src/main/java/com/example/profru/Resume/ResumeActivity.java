@@ -30,10 +30,13 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.profru.BuildConfig;
 import com.example.profru.MainScreen.MainActivity;
 import com.example.profru.MainScreen.Vacations.VacationListActivity;
 import com.example.profru.R;
+import com.example.profru.User;
 
+import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlSerializer;
 
 import java.io.File;
@@ -47,8 +50,7 @@ public class ResumeActivity extends AppCompatActivity {
 
     private static int RESULT_LOAD_IMAGE = 1;
     private static int RESULT_LOAD_DOST = 2;
-    private String avatar_path;
-    private String image_path;
+    private String avatar_path = null;
 
     private DostListAdapter dost_adapter;
     private ObrListAdapter obr_adapter;
@@ -80,7 +82,7 @@ public class ResumeActivity extends AppCompatActivity {
             Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
             cursor.moveToFirst();
             int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            image_path = cursor.getString(columnIndex);
+            String image_path = cursor.getString(columnIndex);
             cursor.close();
 
             ((DostItem) dost_adapter.getItem(dost_adapter.getCurrent_edit_index())).setImage_path(image_path);
@@ -190,79 +192,52 @@ public class ResumeActivity extends AppCompatActivity {
                 cd.show();
             }
         });
+
+        if(getIntent().getBooleanExtra("edit", false)) {
+            User user  = new User();
+            try {
+                user.ParseXml();
+            } catch (IOException | XmlPullParserException e) {
+                e.printStackTrace();
+            }
+
+            fio.setText(user.fullname);
+            birthdate.setText(user.birthdate);
+            avatar_path = user.avatar_path;
+            if(avatar_path == null)
+                ((ImageView) findViewById(R.id.avatar)).setImageDrawable(getDrawable(R.drawable.avatar_image));
+            else
+                ((ImageView) findViewById(R.id.avatar)).setImageBitmap(BitmapFactory.decodeFile(avatar_path));
+
+            obr_adapter.setList(user.obrlist);
+            work_adapter.setList(user.worklist);
+
+            for (DostItem item : user.dostlist) {
+                item.setImage(Drawable.createFromPath(item.getImage_path()));
+                dost_adapter.add(item);
+            }
+        }
     }
 
     public void SaveAll() throws IOException {
-        //XML
-        FileOutputStream fileos;
-        File folder = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "ProfRu Files");
-        if(!folder.exists())
-            folder.mkdir();
-        File file = new File(folder, "resume.xml");
-        file.createNewFile();
-        fileos = new FileOutputStream(file);
+        User user = new User();
+        user.fullname = fio.getText().toString();
+        user.birthdate = birthdate.getText().toString();
+        user.avatar_path = avatar_path;
+        user.obrlist = obr_adapter.getList();
+        user.dostlist = dost_adapter.getList();
+        user.worklist = work_adapter.getList();
 
-        StringWriter writer = new StringWriter();
-        XmlSerializer xmlSerializer = Xml.newSerializer();
-        xmlSerializer.setOutput(writer);
+        user.Save();
 
-        xmlSerializer.startDocument("UTF-8", true);
-        xmlSerializer.startTag(null, "data");
 
-        //USER DATA
-        xmlSerializer.startTag(null, "user");
-
-        xmlSerializer.startTag(null, "FIO");
-        xmlSerializer.text(fio.getText().toString());
-        xmlSerializer.endTag(null, "FIO");
-
-        xmlSerializer.startTag(null, "birthdate");
-        xmlSerializer.text(birthdate.getText().toString());
-        xmlSerializer.endTag(null, "birthdate");
-
-        xmlSerializer.startTag(null, "avatar");
-        xmlSerializer.text(avatar_path);
-        xmlSerializer.endTag(null, "avatar");
-
-        xmlSerializer.endTag(null, "user");
-
-        //OBR
-        xmlSerializer.startTag(null, "obr");
-        for(ObrItem item : obr_adapter.getList()) {
-            xmlSerializer.startTag(null, "item");
-            xmlSerializer.text(item.getType() + "|" + item.getOrigin());
-            xmlSerializer.endTag(null, "item");
+        if(getIntent().getBooleanExtra("edit", false)) {
+            finish();
         }
-        xmlSerializer.endTag(null, "obr");
-
-        //WORK
-        xmlSerializer.startTag(null, "work");
-        for(WorkItem item : work_adapter.getList()) {
-            xmlSerializer.startTag(null, "item");
-            xmlSerializer.text(item.getProfession() + "|" + item.getPlace() + "|" + item.getTime());
-            xmlSerializer.endTag(null, "item");
+        else {
+            startActivity(new Intent(ResumeActivity.this, MainActivity.class));
+            finish();
         }
-        xmlSerializer.endTag(null, "work");
-
-        //DOST
-        xmlSerializer.startTag(null, "dost");
-        for(DostItem item : dost_adapter.getList()) {
-            xmlSerializer.startTag(null, "item");
-            xmlSerializer.text(item.getImage_path() + "|" + item.getDescription());
-            xmlSerializer.endTag(null, "item");
-        }
-        xmlSerializer.endTag(null, "dost");
-
-        xmlSerializer.endTag(null, "data");
-        xmlSerializer.endDocument();
-        xmlSerializer.flush();
-
-        String dataWrite = writer.toString();
-        fileos.write(dataWrite.getBytes());
-        fileos.close();
-
-        startActivity(new Intent(ResumeActivity.this, MainActivity.class));
-        finish();
     }
 
     private void dost_listener(View view) {

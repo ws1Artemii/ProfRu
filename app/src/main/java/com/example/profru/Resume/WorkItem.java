@@ -23,4 +23,8 @@ public class WorkItem {
         place = _place;
         profession = _profession;
     }
+
+    public WorkItem(String compressed) {
+        this(compressed.split("|")[1], compressed.split("|")[0], Float.parseFloat(compressed.split("|")[2]));
+    }
 }

@@ -32,10 +32,13 @@
                     android:textAlignment="center"
                     android:textColor="@color/stroke_color"/>
 
-                <ImageView android:id="@+id/avatar"
+                <com.google.android.material.imageview.ShapeableImageView android:id="@+id/avatar"
                     android:layout_width="145dp"
                     android:layout_height="166dp"
                     android:src="@drawable/avatar_image"
+                    app:shapeAppearance="@style/BoxShape"
+                    android:foreground="@drawable/box_stroke"
+                    android:padding="8dp"
                     android:scaleType="centerCrop"
                     app:layout_constraintTop_toTopOf="@id/fio"
                     app:layout_constraintEnd_toEndOf="parent"

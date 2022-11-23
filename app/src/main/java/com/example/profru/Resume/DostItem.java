@@ -36,4 +36,9 @@ public class DostItem {
         image = _image;
         description = _description;
     }
+
+    public DostItem(String compressed) {
+        this(null, compressed.split("|")[1]);
+        image_path = compressed.split("|")[0];
+    }
 }

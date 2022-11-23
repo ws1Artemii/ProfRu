@@ -30,7 +30,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title"
         android:orientation="vertical"
-        android:divider="@drawable/divider15v"
+        android:divider="@drawable/divider15"
         android:showDividers="middle"
         android:paddingHorizontal="22dp"
         android:gravity="center_horizontal">

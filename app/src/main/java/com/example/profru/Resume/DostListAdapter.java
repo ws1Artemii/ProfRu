@@ -130,4 +130,8 @@ public class DostListAdapter extends BaseAdapter {
         list.add(new DostItem(inflater.getContext().getDrawable(R.drawable.noimage), ""));
         lv.invalidateViews();
     }
+
+    public void add(DostItem item) {
+        list.add(item);
+    }
 }

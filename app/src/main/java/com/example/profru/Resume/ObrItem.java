@@ -17,6 +17,9 @@ public class ObrItem {
     public String getType() {
         return types[type];
     }
+    public int getTypeId() {
+        return type;
+    }
 
     public String getOrigin() {
         return origin;
@@ -33,6 +36,10 @@ public class ObrItem {
     public ObrItem(String _origin, int _type) {
         origin = _origin;
         type = _type;
+    }
+
+    public ObrItem(String compressed) {
+        this(compressed.split("|")[1], Integer.getInteger(compressed.split("|")[0]));
     }
 
     public ObrItem() {

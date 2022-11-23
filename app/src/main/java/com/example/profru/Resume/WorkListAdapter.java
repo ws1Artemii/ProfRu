@@ -30,6 +30,10 @@ public class WorkListAdapter extends BaseAdapter {
         list = new ArrayList<>();
     }
 
+    public void setList(ArrayList<WorkItem> list) {
+        this.list = list;
+    }
+
     public ArrayList<WorkItem> getList() {
         return list;
     }
