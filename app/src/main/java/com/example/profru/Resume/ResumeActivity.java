@@ -231,13 +231,8 @@ public class ResumeActivity extends AppCompatActivity {
         user.Save();
 
 
-        if(getIntent().getBooleanExtra("edit", false)) {
-            finish();
-        }
-        else {
-            startActivity(new Intent(ResumeActivity.this, MainActivity.class));
-            finish();
-        }
+        startActivity(new Intent(ResumeActivity.this, MainActivity.class));
+        finish();
     }
 
     private void dost_listener(View view) {

@@ -11,14 +11,18 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,6 +32,7 @@ import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.profru.BuildConfig;
 import com.example.profru.MainScreen.Study.StudyActivity;
 import com.example.profru.MainScreen.Vacations.VacationActivity;
 import com.example.profru.MainScreen.Vacations.VacationListActivity;
@@ -57,7 +62,9 @@ public class MainActivity extends AppCompatActivity {
     private View load;
 
     private static int RESULT_RESUME = 10;
-    private static int RESULT_AVATAR = 10;
+    private static int RESULT_AVATAR = 1541970047;
+
+    private Activity act = MainActivity.this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +126,10 @@ public class MainActivity extends AppCompatActivity {
             super(fragmentActivity);
 
             list = new ArrayList<>();
+        }
+
+        public void reset(int position) {
+            ListPagerAdapter.this.notifyItemChanged(position);
         }
 
         public void addFragment(Fragment f) {
@@ -350,7 +361,8 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     Intent i = new Intent(getActivity(), ResumeActivity.class);
                     i.putExtra("edit", true);
-                    startActivityForResult(i, RESULT_RESUME);
+                    startActivity(i);
+                    getActivity().finish();
                 }
             });
 
@@ -368,7 +380,7 @@ public class MainActivity extends AppCompatActivity {
 
                     if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
                         Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                        startActivityForResult(i, RESULT_AVATAR);
+                        getActivity().startActivityForResult(i, RESULT_RESUME);
                     }
                 }
             });
@@ -394,7 +406,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == RESULT_AVATAR && resultCode == RESULT_OK && data != null) {
+        Log.e("Req code", requestCode + "");
+
+        if ((requestCode == RESULT_RESUME) && resultCode == RESULT_OK && data != null) {
             Uri selectedImage = data.getData();
             String[] filePathColumn = {MediaStore.Images.Media.DATA};
             Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
@@ -403,18 +417,27 @@ public class MainActivity extends AppCompatActivity {
             user.avatar_path = cursor.getString(columnIndex);
             cursor.close();
 
-            new AsyncReinportUser().execute("avatar");
+            AlphaAnimation a = new AlphaAnimation(0.0f, 1.0f);
+            a.setFillAfter(true);
+            a.setDuration(500);
+            load.setVisibility(View.VISIBLE);
+            load.startAnimation(a);
+            Log.e("Image", "Recieved");
+
+            new AsyncReinportUser().execute();
         }
-        else if (requestCode == RESULT_RESUME && resultCode == RESULT_OK && data != null) {
-            Uri selectedImage = data.getData();
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
-            Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-            cursor.moveToFirst();
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            user.avatar_path = cursor.getString(columnIndex);
-            cursor.close();
+    }
 
-            new AsyncReinportUser().execute("resume");
+    void Restart() {
+        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
+            act.recreate();
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        }
+        else {
+            Intent i = getIntent();
+            act.finish();
+            startActivity(i);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         }
     }
 
@@ -423,18 +446,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... strings) {
 
-            if(strings[0].equals("avatar")) {
-                ((VacationsSlide) adapter.list.get(0)).changeAvatarImage();
-                adapter.notifyItemChanged(0);
-                ((ProfileSlide) adapter.list.get(2)).changeAvatarImage();
-                adapter.notifyItemChanged(2);
-            }
-            else if(strings[0].equals("resume")) {
-                ((VacationsSlide) adapter.list.get(0)).reset();
-                adapter.notifyItemChanged(0);
-                ((ProfileSlide) adapter.list.get(2)).changeAvatarImage();
-                adapter.notifyItemChanged(2);
-            }
+            Log.e("Async", "Started");
 
             try {
                 user.Save();
@@ -443,6 +455,18 @@ public class MainActivity extends AppCompatActivity {
             }
 
             return "Complete";
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Restart();
+                }
+            }, 600);
         }
     }
 }
