@@ -29,6 +29,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.profru.BuildConfig;
 import com.example.profru.MainScreen.MainActivity;
@@ -50,7 +51,7 @@ public class ResumeActivity extends AppCompatActivity {
 
     private static int RESULT_LOAD_IMAGE = 1;
     private static int RESULT_LOAD_DOST = 2;
-    private String avatar_path = null;
+    private String avatar_path = "none";
 
     private DostListAdapter dost_adapter;
     private ObrListAdapter obr_adapter;
@@ -204,7 +205,7 @@ public class ResumeActivity extends AppCompatActivity {
             fio.setText(user.fullname);
             birthdate.setText(user.birthdate);
             avatar_path = user.avatar_path;
-            if(avatar_path == null)
+            if(avatar_path.equals("none"))
                 ((ImageView) findViewById(R.id.avatar)).setImageDrawable(getDrawable(R.drawable.avatar_image));
             else
                 ((ImageView) findViewById(R.id.avatar)).setImageBitmap(BitmapFactory.decodeFile(avatar_path));
@@ -227,6 +228,11 @@ public class ResumeActivity extends AppCompatActivity {
         user.obrlist = obr_adapter.getList();
         user.dostlist = dost_adapter.getList();
         user.worklist = work_adapter.getList();
+
+        if(user.fullname.equals("") || user.birthdate.equals("")) {
+            Toast.makeText(getApplicationContext(), "Не все поля заполнены!", Toast.LENGTH_LONG).show();
+            return;
+        }
 
         user.Save();
 

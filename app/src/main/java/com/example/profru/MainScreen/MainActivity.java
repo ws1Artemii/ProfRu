@@ -194,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            if(user.avatar_path == null)
+            if(user.avatar_path.equals("none"))
                 ((ImageView) view.findViewById(R.id.avatar)).setImageDrawable(avatar_def);
             else
                 ((ImageView) view.findViewById(R.id.avatar)).setImageBitmap(BitmapFactory.decodeFile(user.avatar_path));
@@ -277,7 +277,7 @@ public class MainActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            if(user.avatar_path == null)
+            if(user.avatar_path.equals("none"))
                 ((ImageView) view.findViewById(R.id.avatar)).setImageDrawable(avatar_def);
             else
                 ((ImageView) view.findViewById(R.id.avatar)).setImageBitmap(BitmapFactory.decodeFile(user.avatar_path));
@@ -351,7 +351,7 @@ public class MainActivity extends AppCompatActivity {
         public ProfileSlide(LayoutInflater inflater) {
             view = inflater.inflate(R.layout.activity_profile, null, false);
 
-            if(user.avatar_path == null)
+            if(user.avatar_path.equals("none"))
                 ((ImageView) view.findViewById(R.id.avatar)).setImageDrawable(avatar_def);
             else
                 ((ImageView) view.findViewById(R.id.avatar)).setImageBitmap(BitmapFactory.decodeFile(user.avatar_path));
@@ -387,7 +387,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         public void changeAvatarImage() {
-            if(user.avatar_path == null)
+            if(user.avatar_path.equals("none"))
                 ((ImageView) view.findViewById(R.id.avatar)).setImageDrawable(avatar_def);
             else
                 ((ImageView) view.findViewById(R.id.avatar)).setImageBitmap(BitmapFactory.decodeFile(user.avatar_path));
